@@ -6,5 +6,5 @@ export class CreateTodoDto {
 
   @IsOptional()
   @IsBoolean()
-  isDone: boolean;
+  isDone?: boolean;
 }

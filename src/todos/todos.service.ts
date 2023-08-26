@@ -39,7 +39,7 @@ export class TodosService {
         user: { username },
       });
     }
-    return await this.todosRepository.findBy({ isDone });
+    return await this.todosRepository.findBy({ user: { username }, isDone });
   }
 
   async findOne(id: number, username: string): Promise<Todo> {

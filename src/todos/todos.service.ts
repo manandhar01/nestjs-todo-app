@@ -9,7 +9,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Todo } from './entities/todo.entity';
 import { Repository } from 'typeorm';
 import { UsersService } from 'src/users/users.service';
-
 @Injectable()
 export class TodosService {
   constructor(
@@ -17,6 +16,20 @@ export class TodosService {
     private todosRepository: Repository<Todo>,
     private usersService: UsersService,
   ) {}
+
+  async createTodo(createTodo: CreateTodoDto, userId: number) {
+    const todo = await this.todosRepository.findOne({
+      where: { todo: createTodo.todo, user: { id: userId } },
+    });
+
+    if (todo) {
+      return todo;
+    }
+
+    const user = await this.usersService.findById(userId);
+
+    return this.todosRepository.save({ ...createTodo, user });
+  }
 
   async create(createTodoDto: CreateTodoDto, username: string): Promise<Todo> {
     const user = await this.usersService.findOne(username);

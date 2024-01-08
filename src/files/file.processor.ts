@@ -17,11 +17,7 @@ export class FileProcessor {
         todo: todo.todo,
         isDone: todo.isDone === 'true' ? true : false,
       };
-      const insertedTodo = await this.todosService.createTodo(
-        newTodo,
-        parseInt(todo.userId),
-      );
-      console.log(insertedTodo);
+      await this.todosService.createTodo(newTodo, parseInt(todo.userId));
     });
 
     console.log('Job processing completed.');

@@ -21,7 +21,7 @@ export class FilesController {
       }),
     }),
   )
-  async uploadFile(@UploadedFile() file) {
+  async uploadFile(@UploadedFile() file: Express.Multer.File) {
     await this.filesService.addFileProcessingJob(file);
 
     return { message: 'File uploaded and processing started.' };

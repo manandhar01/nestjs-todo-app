@@ -9,7 +9,7 @@ export class FilesService {
     private readonly filesQueue: Queue,
   ) {}
 
-  async addFileProcessingJob(file): Promise<void> {
+  async addFileProcessingJob(file: Express.Multer.File): Promise<void> {
     await this.filesQueue.add('process-file', file);
   }
 }
